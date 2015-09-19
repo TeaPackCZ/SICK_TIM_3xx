@@ -1,0 +1,11 @@
+# NEFUNKCNI:
+# SUBSYSTEM !="usb_device", ACTION !="add", GOTO="rules_end"
+# SYSFS{idVendor} =="19a2", SYSFS{idProduct} =="5001", SYMLINK+="laserscanner"
+# MODE="0666", OWNER="teapack", GROUP="root"
+# LABEL="rules_end"
+ 
+# NEFUNKCNI:
+# SUBSYSTEM=="usb",SYSFS{idVendor} =="19a2", SYSFS{idProduct} =="5001",GROUP="plugdev"
+
+# otestovat:
+SUBSYSTEM=="usb",SYSFS{idVendor} =="19a2", SYSFS{idProduct} =="5001",GROUP="plugdev", MODE="0666"

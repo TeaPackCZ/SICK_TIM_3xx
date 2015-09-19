@@ -1,0 +1,49 @@
+1) check dependencies:
+	PyUSB - version must be at least 1.0.0a2
+	fic with: "sudo pip install --ugrade --pre pyusb"
+
+2) check USB device: ( Looking for ID="19a2:5001" )
+	"lsusb"
+	
+	You should see something like:
+	
+	Bus 002 Device 045: ID 19a2:5001  
+	Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+	Bus 008 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+	Bus 007 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+	Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+	Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+	Bus 001 Device 002: ID 064e:a133 Suyin Corp. 
+	Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+	Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+	Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+	
+3) check permissions:
+	lsusb -v -s NUMBER_OF_DEVICE ("lsusb -v -s 45")
+    
+    if is there warning:
+	Bus 002 Device 045: ID 19a2:5001  
+	Couldn't open device, some information will be missing
+	....
+    than you have to run your programs with "sudo"
+
+#    workaround - in progress
+#    copy 99_laserscanner.rules to /etc/udev/rules.d/
+#    	sudo cp 99_laserscanner.rules /etc/udev/rules.d/99_laserscanner.rules
+#    
+#    unplug device & restart udev:
+#        sudo udevadm trigger
+#    
+#    plug device again and chech another time.
+
+4) test connection with python
+	python LaserScanner.py
+    if there is error: USBError: [Errno 13] Access denied (insufficient permissions)
+    try "sudo python LaserScanner.py"
+    
+    
+    
+    
+    
+    
+    

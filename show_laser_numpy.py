@@ -27,7 +27,7 @@ for i in range(number_of_files):
     files.close()
 
 
-## Segmentation:
+## Multi segmentation:
 
 segments = []
 segm_len = []
@@ -68,10 +68,18 @@ for i in range(number_of_files-1):
     val_diff[i] = ang_values[i+1]-ang_values[i]
 
 
-## Show data:
+## Show data in polar:
 
-plt.figure
+plt.figure(0)
 for i in range(number_of_files):
     for j in range(len(segm_start[i])-1):
         plt.plot(axis_x[segm_start[i][j]:segm_start[i][j]+segm_len[i][j]],segments[i][j])
+
+
+## Show data in cartesian:
+
+plt.figure(1)
+for i in range(number_of_files):
+    for j in range(len(segm_start[i])-1):
+        plt.plot(x_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1],y_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1])
 plt.show()

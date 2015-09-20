@@ -1,6 +1,6 @@
 1) check dependencies:
 	PyUSB - version must be at least 1.0.0a2
-	fic with: "sudo pip install --ugrade --pre pyusb"
+	fix with: "sudo pip install --ugrade --pre pyusb"
 
 2) check USB device: ( Looking for ID="19a2:5001" )
 	"lsusb"
@@ -38,7 +38,7 @@
 
 4) test connection with python
 	python LaserScanner.py
-    if there is error: USBError: [Errno 13] Access denied (insufficient permissions)
+    if there is error: "USBError: [Errno 13] Access denied (insufficient permissions)"
     try "sudo python LaserScanner.py"
     
     

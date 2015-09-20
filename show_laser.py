@@ -6,7 +6,6 @@ base_src = "measurements/Measurement_"
 max_dif = 150
 
 data=[]
-values = np.zeros((40,271),np.int16)
 
 for i in range(40):
     name = base_src + str(i)
@@ -15,13 +14,7 @@ for i in range(40):
     int_data = []
     for j in range(len(str_data)):
         int_data.append(int(str_data[j]))
-        values[i][j] = int(str_data[j])
     data.append(int_data)
-    
-## COMPUTE DIFF between scans (scanner must be static):
-
-# In angles (np.array)
-x = np.arange(-135,136,1,np.int16)
 
 
 ## SHOW in angles (python array)
@@ -64,7 +57,7 @@ for i in range(len(segm_len)):
     else:
         plt.plot(x_angle,segments[i],"*")
 
-## tranform to Cartezian
+## tranform to cartezian
 x=[]
 y=[]
 for i in range(271):

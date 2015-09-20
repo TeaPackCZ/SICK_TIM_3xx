@@ -1,12 +1,8 @@
 #import sys
-#import socket
 import time
 #from threading import Thread,Event,Lock
 import usb.core
 import usb.uti
-
-#import mytplotlib.pyplot as plt
-#import numpy as np
 
 class TIM3xx:
     def __init__(self):
@@ -31,7 +27,6 @@ class TIM3xx:
                 arr = self.dev.read(1|usb.ENDPOINT_IN,65535,timeout=100)
                 return "".join([chr(x) for x in arr[1:-1]])
             except:
-                #print "Laser error " + str(i)
                 time.sleep(0.001)
 
     def internal_scan(self):
@@ -51,12 +46,6 @@ for i in range(40):
     datas.append(distance)
     time.sleep(0.05)
 del laser
-
-#x = [-135:1:135]
-#for i in range(40):
-#    plt.figure;
-#    plt.plot(x,datas[i])
-#    plt.show()
 
 
 

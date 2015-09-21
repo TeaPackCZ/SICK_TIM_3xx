@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 import numpy as np
 import math
@@ -7,7 +8,7 @@ import math
 
 base_src = "measurements/Measurement_"
 max_dif = 150
-number_of_files = 40
+number_of_files = 5
 
 ang_values = np.zeros((number_of_files,271),np.int16)
 x_values = np.zeros((number_of_files,271),np.float)
@@ -62,18 +63,15 @@ for i in range(number_of_files):
         y_values[i][j] = math.sin(axis_x[j]/180.0*math.pi)*ang_values[i][j]
 
 
-## Diff computing:
-
-for i in range(number_of_files-1):
-    val_diff[i] = ang_values[i+1]-ang_values[i]
-
-
 ## Show data in polar:
 
 plt.figure(0)
 for i in range(number_of_files):
     for j in range(len(segm_start[i])-1):
-        plt.plot(axis_x[segm_start[i][j]:segm_start[i][j]+segm_len[i][j]],segments[i][j])
+        if(segm_len[i][j] > 1):
+            plt.plot(axis_x[segm_start[i][j]:segm_start[i][j]+segm_len[i][j]],segments[i][j])
+        else:
+            plt.plot(axis_x[segm_start[i][j]:segm_start[i][j]+segm_len[i][j]],segments[i][j],"*")
 
 
 ## Show data in cartesian:
@@ -81,5 +79,9 @@ for i in range(number_of_files):
 plt.figure(1)
 for i in range(number_of_files):
     for j in range(len(segm_start[i])-1):
-        plt.plot(x_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1],y_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1])
+        if(segm_len[i][j] > 1):
+            plt.plot(x_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1],y_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1])
+        else:
+            plt.plot(x_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1],y_values[i,segm_start[i][j]+1:segm_start[i][j]+segm_len[i][j]+1],"*")
 plt.show()
+

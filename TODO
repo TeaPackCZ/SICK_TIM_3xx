@@ -27,14 +27,20 @@
 	....
     than you have to run your programs with "sudo"
 
-#    workaround - in progress
-#    copy 99_laserscanner.rules to /etc/udev/rules.d/
-#    	sudo cp 99_laserscanner.rules /etc/udev/rules.d/99_laserscanner.rules
-#    
-#    unplug device & restart udev:
-#        sudo udevadm trigger
-#    
-#    plug device again and chech another time.
+    workaround - need test, something similar worked with NXT brick
+    copy 70_sick.rules to /etc/udev/rules.d/
+    	sudo cp 99_laserscanner.rules /etc/udev/rules.d/99_laserscanner.rules
+    
+    create new group SICK:
+    	sudo groupadd sick
+    
+    add yourself to that group:
+    	sudo useradd -a -G sick <your_username>
+    
+    unplug device & restart udev:
+        sudo udevadm trigger
+    
+    plug device again and chech another time - maybe restart is needed
 
 4) test connection with python
 	python LaserScanner.py

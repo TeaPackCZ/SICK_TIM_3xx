@@ -25,11 +25,10 @@
 	Bus 002 Device 045: ID 19a2:5001  
 	Couldn't open device, some information will be missing
 	....
-    than you have to run your programs with "sudo"
-
-    workaround - need test, something similar worked with NXT brick
-    copy 70_sick.rules to /etc/udev/rules.d/
-    	sudo cp 99_laserscanner.rules /etc/udev/rules.d/99_laserscanner.rules
+    than you can run your programs with "sudo" OR
+    workaround:
+    copy 70_SICK.rules to /etc/udev/rules.d/
+    	sudo cp 70_SICK.rules /etc/udev/rules.d/70_SICK.rules
     
     create new group SICK:
     	sudo groupadd sick
@@ -40,12 +39,14 @@
     unplug device & restart udev:
         sudo udevadm trigger
     
-    plug device again and chech another time - maybe restart is needed
+    restart your machine, to apply new rules.
+    plug device again and chech again lsusb.
 
 4) test connection with python
 	python LaserScanner.py
     if there is error: "USBError: [Errno 13] Access denied (insufficient permissions)"
-    try "sudo python LaserScanner.py"
+        workaround is probably not working - report me and I'll try fix it.
+    try "sudo python LaserScanner.py" - it should work.
     
     
     

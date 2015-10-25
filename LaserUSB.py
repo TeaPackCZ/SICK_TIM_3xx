@@ -2,12 +2,17 @@
 import time
 #from threading import Thread,Event,Lock
 import usb.core
-import usb.uti
+import usb.util
+
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+from coord_lib import *
 
 class TIM3xx:
     def __init__(self):
         self.dev = usb.core.find(idVendor=0x19a2, idProduct=0x5001)
-        self.dev.set_configuration()
+        ##self.dev.set_configuration()
         for i in range(10):
             try:
                 self.dev.set_configuration()
@@ -39,13 +44,46 @@ class TIM3xx:
             print "Corrupted data, data_len = " + str(len(data))
         return run_time, dist, remission
 
+
+number_of_measurements = 40
+
 laser = TIM3xx()
 datas = []
-for i in range(40):
+ang_values = np.zeros((271),np.int16)
+axis_x = np.arange(-135,136,1,np.float)
+
+for i in range(number_of_measurements):
     [running, distance, remission] = laser.internal_scan()
+
+    ## Conversion to numpy array:
+    for j in range(len(distance)):
+        ang_values[j] = int(distance[j])
+
+    ## Segmentation
+    segments = ang_segmentation(ang_values, max_diff = 100)
+
+    ## convert segments to cartezian:
+    new_x = []
+    new_y = []
+    for j in range(len(segments)):
+        [nx,ny] = ang2cartezian(axis_x[segments[j][0]:segments[j][0]+segments[j][1]],segments[j][2])
+        new_x.append(nx)
+        new_y.append(ny)
+
+    ## Show data:
+    plt.figure(i)
+    #Angular data:
+    for j in range(len(segments)):
+        plt.plot(axis_x[segments[j][0]:segments[j][0]+segments[j][1]],segments[j][2])
+    # Cartezian data:
+    plt.figure(i+number_of_measurements)
+    for j in range(len(segments)):
+        plt.plot(new_x[j],new_y[j])
+    plt.show()
+    
     datas.append(distance)
-    time.sleep(0.05)
 del laser
+
 
 
 
